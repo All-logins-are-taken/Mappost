@@ -1,0 +1,20 @@
+{
+  "name": "vendor_name/mappost",
+  "description": "practical test Distance for MapPost",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "fkan",
+      "email": "shalexander2016@gmail.com"
+    }
+  ],
+  "require": {
+    "ext-curl": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
+  }
+}
