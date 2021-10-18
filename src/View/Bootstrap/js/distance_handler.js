@@ -42,6 +42,7 @@ function add() {
     let count = inputs.childElementCount;
     let addition = '<div class="mb-3">' +
         '<input type="text" class="form-control" placeholder="dravnieku 10 riga" aria-label="Address'+(count+1)+'" minlength="10" maxlength="200" required>' +
+        '<button type="button" class="btn-close" aria-label="Close" style="position: absolute; margin: -30px 0 0 -30px;" onclick="this.parentElement.remove()"></button>' +
         '</div>'
 
     if (count === 10) {

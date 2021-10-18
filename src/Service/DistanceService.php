@@ -69,11 +69,9 @@ class DistanceService
 
             if (empty($coordinateArray['adrese'])) {
                 return 'Empty address passed to Mappost';
-            }
-            elseif (empty($coordinateArray['adrese'][0]['name'])) {
+            } elseif (empty($coordinateArray['adrese'][0]['name'])) {
                 return 'Empty address name passed to Mappost';
-            }
-            elseif (empty($coordinateArray['adrese'][0]['x']) || empty($coordinateArray['adrese'][0]['y'])) {
+            } elseif (empty($coordinateArray['adrese'][0]['x']) || empty($coordinateArray['adrese'][0]['y'])) {
                 return 'Empty coordinates passed to Mappost';
             }
             $body = [
@@ -112,11 +110,11 @@ class DistanceService
 
         $body = [
             'TaskType' => 'delivery',
-            'TaskName' => 'Logistic task '.time(),
+            'TaskName' => 'Logistic task ' . time(),
             'Orders' => $ids,
-            'Warehouses' => ['WarehouseObjectID' => ''],
-            'ParkingPlaces' => ['ParkingPlaceObjectID' => ''],
-            'Cars' => ['CarObjectID' => '']
+            'Warehouses' => [['WarehouseObjectID' => getenv('MAPPOST_API_WAREHOUSES_ID')]],
+            'ParkingPlaces' => [['ParkingPlaceObjectID' => getenv('MAPPOST_API_PARKING_PLACES_ID')]],
+            'Cars' => [['CarObjectID' => getenv('MAPPOST_API_CARS_ID')]]
         ];
 
         $response = $httpClient->post(getenv('MAPPOST_API_SOLVE_URL'), $headers, json_encode($body));
@@ -128,9 +126,13 @@ class DistanceService
         $distances[] = $responseArray['Solution']['Distance'];
 
 
-        return (string)(array_sum($distances)/1000);
+        return (array_sum($distances) / 1000) . ' km';
     }
 
+    /**
+     * @throws ReflectionException
+     * @throws NotFoundException
+     */
     private function headers(): array
     {
         $this->container->get('DotEnvService')->load();

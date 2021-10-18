@@ -22,7 +22,7 @@ class Request
         if ($this->requestMethod !== 'POST') {
             return '';
         }
-        $_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
         error_log(print_r($_POST, true), 3, '/home/fkan/PhpstormProjects/Mappost/test.log');
         return $_POST;
     }
